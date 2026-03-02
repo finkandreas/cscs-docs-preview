@@ -10,7 +10,14 @@ from aiohttp import web
 routes = web.RouteTableDef()
 
 target_dir = sys.argv[1]
-secret = f'Bearer {sys.argv[2]}'
+secret = ''
+if len(sys.argv) > 2:
+    secret = f'Bearer {sys.argv[2]}'
+elif 'UPLOAD_TOKEN' in os.environ:
+    secret = f'Bearer {os.environ["UPLOAD_TOKEN"]}'
+if secret == '':
+    print("No upload token provided, either use it as second argument at startup or provide it in the environment variable UPLOAD_TOKEN")
+    sys.exit(1)
 
 @routes.post("/upload")
 async def handle_upload(request: web.Request) -> web.Response:

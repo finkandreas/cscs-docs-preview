@@ -20,6 +20,7 @@ elif 'UPLOAD_TOKEN' in os.environ:
 if secret == '':
     print("No upload token provided, either use it as second argument at startup or provide it in the environment variable UPLOAD_TOKEN")
     sys.exit(1)
+sys.stdout.flush()
 
 @routes.post("/upload")
 async def handle_upload(request: web.Request) -> web.Response:

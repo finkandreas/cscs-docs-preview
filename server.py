@@ -12,8 +12,10 @@ routes = web.RouteTableDef()
 target_dir = sys.argv[1]
 secret = ''
 if len(sys.argv) > 2:
+    print("Provided upload token as commandline argument is being used")
     secret = f'Bearer {sys.argv[2]}'
 elif 'UPLOAD_TOKEN' in os.environ:
+    print("Provided upload token from environment variable is being used")
     secret = f'Bearer {os.environ["UPLOAD_TOKEN"]}'
 if secret == '':
     print("No upload token provided, either use it as second argument at startup or provide it in the environment variable UPLOAD_TOKEN")
